@@ -18,6 +18,11 @@ io.on('connection', function(socket) {
 	socket.on('add connection', function(name) {
 		console.log("Se conecto " + name);
 		socket.broadcast.emit("add user", name);
+		socket.emit("connect user", true);
+	});
+	socket.on('message', function(message) {
+	  console.log("el dice" , message);
+	  socket.broadcast.emit("send message", message)
 	});
 	socket.on('disconnect', function() {
 	  console.log("alguien se desconecto");

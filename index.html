@@ -9,6 +9,9 @@
  <h1>Hola World</h1>
 <input type="text" id="username">
 <input type="submit" id="submit" value="entrar">
+<input type= "text"id= "message" >
+<input type="submit" id="send" value="enviar">
+
 <div id="messages"></div>
 
 
@@ -22,11 +25,32 @@
 	   	$("#submit").on("click",function(){
 		    var name = $("#username").val();
 		    socket.emit("add connection", name);
+		    socket.io
 	   	});
+	   		$("#send").on("click",function(){
+		    var message = $("#message").val();
+		    socket.emit("message", message);
+		    socket.io
+	   	});
+
+
+
   	});
+
+	socket.on("connect user", function(data){
+    if(data==true){
+     $("#username, #submit").hide();
+     alert("Bienvenido");
+    }
+   	});
+
 
   	socket.on('add user', function(name) {
 		$("#messages").append("<p>Se conectó:"+name+"</p>");
+	});
+
+	socket.on('send message', function(message) {
+		$("#messages").append("<p>Él dice:"+message+"</p>");
 	});
 
 
