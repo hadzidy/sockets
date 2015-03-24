@@ -44,13 +44,20 @@
     }
    	});
 
+	socket.on("already exist", function(){
+		$("#messages").append("<p>Nombre de ususario existe</p>");
+	})
+
+	socket.on("user desconected", function(data){
+		$("#messages").append("<p>Se desconectó" + data + "</p>");
+	})
 
   	socket.on('add user', function(name) {
 		$("#messages").append("<p>Se conectó:"+name+"</p>");
 	});
 
-	socket.on('send message', function(message) {
-		$("#messages").append("<p>Él dice:"+message+"</p>");
+	socket.on('send message', function(data) {
+		$("#messages").append("<p>"+ data.username + " " + data.message +"</p>");
 	});
 
 
