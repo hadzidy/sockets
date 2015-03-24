@@ -8,15 +8,20 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+app.use(express.static(__dirname + '/assets'));
 
 
 
 
 io.on('connection', function(socket) {
- console.log("alguien se conecto");
- socket.on('disconnect', function() {
-  console.log("alguien se desconecto");
- });
+	console.log("alguien se conecto");
+	socket.on('add connection', function(name) {
+		console.log("Se conecto " + name);
+		socket.broadcast.emit("add user", name);
+	});
+	socket.on('disconnect', function() {
+	  console.log("alguien se desconecto");
+	});
 });
 
 

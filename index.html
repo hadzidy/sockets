@@ -3,12 +3,33 @@
 <head>
  <meta charset="UTF-8">
  <title>Document</title>
+ <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
  <h1>Hola World</h1>
+<input type="text" id="username">
+<input type="submit" id="submit" value="entrar">
+<div id="messages"></div>
+
+
  <script src="/socket.io/socket.io.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
  <script type="text/javascript">
  	var socket = io();
+
+
+ 	$(document).ready(function() {
+	   	$("#submit").on("click",function(){
+		    var name = $("#username").val();
+		    socket.emit("add connection", name);
+	   	});
+  	});
+
+  	socket.on('add user', function(name) {
+		$("#messages").append("<p>Se conectó:"+name+"</p>");
+	});
+
+
  </script>
 </body>
 </html>
